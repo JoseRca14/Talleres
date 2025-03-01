@@ -177,7 +177,7 @@
                         <p class="testimony__review">Soy estudiante de la carrera de QFB y actualmente formo parte del taller de baloncesto. Me ha encantado la experiencia de participar en torneos dentro del taller y poder competir junto a mis compañeros. </p>
                     </div>
                     <figure class="testimony__picture">
-                        <img src="../assets/images/persona2.jpeg" alt="" class="testimony__img">
+                        <img src="../assets/images/cristian.jpeg" alt="" class="testimony__img">
                     </figure>
                 </section>
 
