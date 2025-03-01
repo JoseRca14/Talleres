@@ -78,7 +78,8 @@
                 <!-- Inscripción a taller -->
                 <form action="./login_taller_be.php" method="POST" class="formulario__login">
                     <h2>Inscríbete a un taller</h2>
-                    <!-- <input type="text" placeholder="Ingresa tu número de usuario" name="id_usuario"> -->
+                    <!-- <input type="text" placeholder="Ingresa tu número de usuario" name="id_usuario"> 
+                     esto es un cambio-->
                     <input type="text" placeholder="Ingresa el ID del taller" name="id_taller">
                     <button>Registrarme</button>
                 </form>
