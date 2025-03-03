@@ -159,5 +159,60 @@ main{
     .contenedor__login__register form{
         position: relative;
     }
+    /* Estilos para la tabla */
+    .table-responsive {
+        overflow-x: auto; /* Hace la tabla responsive en pantallas pequeñas */
+        margin-top: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .styled-table th,
+    .styled-table td {
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    .styled-table th {
+        background-color: #2091f9;
+        color: white;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+        transition: background-color 0.3s ease;
+    }
+
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f9f9f9;
+    }
+
+    .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #2091f9;
+    }
+
+    .styled-table tbody tr:hover {
+        background-color: #f1f1f1;
+        cursor: pointer;
+    }
+
+    /* Estilos para el mensaje de carga o error */
+    #usuario-body tr td[colspan="6"] {
+        text-align: center;
+        padding: 20px;
+        font-size: 16px;
+        color: #6c757d;
+    }
     
 }

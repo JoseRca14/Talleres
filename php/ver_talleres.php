@@ -4,7 +4,7 @@ session_start();
 if (!isset($_SESSION['usuario'])) {
     echo '
         <script>
-            alert("Por favor debes iniciar sesión");
+            alert("Por favor, debes iniciar sesión");
             window.location = "../index.php";
         </script>
     ';
@@ -33,29 +33,25 @@ if (!$result) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Talleres León</title>
-    <link rel="shortcut icon" href="../assets/images/favico.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/images/faviconleo.png" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/normalize.css">
     <link rel="stylesheet" href="../assets/css/estilos.css">
 
     <meta name="theme-color" content="#2091f9">
 
-    <meta name="title" content="Kombucha Aga-Ko">
-    <meta name="description" content="Descubre todo sobre la kombucha: su proceso de elaboración, beneficios para la
-        salud y consejos para disfrutarla. ¡Sumérgete en el mundo de esta bebida fermentada y saludable!">
+    <meta name="title" content="Talleres León">
+    <meta name="description" content="Descubre todo sobre los talleres: actividades deportivas, artísticas y educativas. ¡Participa y desarrolla tus habilidades!">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://freddy-king.github.io">
-    <meta property="og:title" content="Kombucha Aga-Ko">
-    <meta property="og:description" content="Descubre todo sobre la kombucha: su proceso de elaboración, beneficios
-        para la salud y consejos para disfrutarla. ¡Sumérgete en el mundo de esta bebida fermentada y saludable!">
+    <meta property="og:title" content="Talleres León">
+    <meta property="og:description" content="Descubre todo sobre los talleres: actividades deportivas, artísticas y educativas. ¡Participa y desarrolla tus habilidades!">
     <meta property="og:image" content="https://freddy-king.github.io/images/imagen4.png">
 
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://freddy-king.github.io">
-    <meta property="twitter:title" content="Kombucha Aga-Ko">
-    <meta property="twitter:description" content="Descubre todo sobre la kombucha: su proceso de elaboración,
-        beneficios para la salud y consejos para disfrutarla. ¡Sumérgete en el mundo de esta bebida fermentada y
-        saludable!">
+    <meta property="twitter:title" content="Talleres León">
+    <meta property="twitter:description" content="Descubre todo sobre los talleres: actividades deportivas, artísticas y educativas. ¡Participa y desarrolla tus habilidades!">
     <meta property="twitter:image" content="https://freddy-king.github.io/images/imagen4.png">
 
     <style>
@@ -121,7 +117,7 @@ if (!$result) {
     <header class="hero">
         <nav class="nav container">
             <div class="nav__logo">
-                <h2 class="nav__title">Talleres León.</h2>
+                <h2 class="nav__title">Talleres León</h2>
             </div>
 
             <ul class="nav__link nav__link--menu">
@@ -145,16 +141,16 @@ if (!$result) {
             </div>
         </nav>
         <section class="hero__container container">
-            <h1 class="hero__title">León en Acción.</h1>
-            <p class="hero__paragraph">Talleres y Deportes para Crecer.</p>
-            <p class="hero__paragraph">VER TALLERES.</p>
+            <h1 class="hero__title">León en Acción</h1>
+            <p class="hero__paragraph">Talleres y Deportes para Crecer</p>
+            <p class="hero__paragraph">VER TALLERES</p>
         </section>
     </header>
 
     <main>
         <section class="container about">
-            <h2 class="subtitle">Talleres para todos!</h2>
-            <p class="about__paragraph">Conoce algunos de nuestros talleres.</p>
+            <h2 class="subtitle">Talleres para todos</h2>
+            <p class="about__paragraph">Conoce algunos de nuestros talleres</p>
 
             <!-- Botón para mostrar/ocultar la tabla y el botón de registro -->
             <button class="toggle-button" onclick="toggleTable()">Mostrar Talleres</button>
@@ -185,8 +181,8 @@ if (!$result) {
                 $conexion->close();
                 ?>
 
-                <!-- Botón para registrar un nuevo taller o registratre a uno -->
-                <button class="register-button" onclick="window.location.href='taller.php'">Registrate o crea un Nuevo Taller</button>
+                <!-- Botón para registrar un nuevo taller o registrarse a uno -->
+                <button class="register-button" onclick="window.location.href='taller.php'">Regístrate o crea un Nuevo Taller</button>
             </div>
         </section>
 
@@ -210,7 +206,7 @@ if (!$result) {
     <footer class="footer">
         <section class="footer__container container">
             <nav class="nav nav--footer">
-                <h2 class="footer__title">Talleres León.</h2>
+                <h2 class="footer__title">Talleres León</h2>
 
                 <ul class="nav__link nav__link--footer">
                     <li class="nav__items">
@@ -229,20 +225,21 @@ if (!$result) {
             </nav>
 
             <form class="footer__form" action="https://formspree.io/f/xgvenala" method="POST">
-                <h2 class="footer__newsletter">¿Tienes problemas? </h2>
-                <p class="footer__newsletter">Deja tu email y te contactaremos.</p>
+                <h2 class="footer__newsletter">¿Tienes problemas?</h2>
+                <p class="footer__newsletter">Deja tu email y te contactaremos</p>
                 <div class="footer__inputs">
                     <input type="email" placeholder="Email:" class="footer__input" name="email">
-                    <input type="submit" value="Enviar." class="footer__submit">
+                    <input type="submit" value="Enviar" class="footer__submit">
                 </div>
             </form>
         </section>
         <section class="footer__copy container">
             <div class="footer__social">
                 <a href="https://www.instagram.com/cuci_udeg/" class="footer__icons">
-                    <img src="../assets/images/instagram.svg" alt="" class="footer__img"></a>
+                    <img src="../assets/images/instagram.svg" alt="" class="footer__img">
+                </a>
             </div>
-            <h3 class="footer__copyright">Derechos reservados &copy;2024 Talleres León.</h3>
+            <h3 class="footer__copyright">Derechos reservados &copy;2024 Talleres León</h3>
         </section>
     </footer>
 
