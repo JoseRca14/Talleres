@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php 
 
     session_start();
@@ -12,6 +13,21 @@
         session_destroy();
         die();
     }
+=======
+<?php
+session_start();
+
+if (!isset($_SESSION['usuario'])) {
+    echo '
+        <script>
+            alert("Por favor, debes iniciar sesión");
+            window.location = "../index.php";
+        </script>
+    ';
+    session_destroy();
+    die();
+}
+>>>>>>> 9234dfd4f8e6c37228e323baa9ac78a51fef8b57
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,6 +39,7 @@
     <link rel="shortcut icon" href="../assets/images/faviconleo.png" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/normalize.css">
     <link rel="stylesheet" href="../assets/css/estilos.css">
+<<<<<<< HEAD
 
     <meta name="theme-color" content="#2091f9">
 
@@ -40,6 +57,14 @@
     <meta property="twitter:title" content="Talleres León">
     <meta property="twitter:description" content="Descubre todo sobre los talleres: actividades deportivas, artísticas y educativas. ¡Participa y desarrolla tus habilidades!">
     <meta property="twitter:image" content="https://freddy-king.github.io/images/imagen4.png">
+=======
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para íconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="../assets/css/mis_talleres.css">
+>>>>>>> 9234dfd4f8e6c37228e323baa9ac78a51fef8b57
 </head>
 
 <body>
@@ -76,6 +101,7 @@
         </section>
     </header>
 
+<<<<<<< HEAD
     <main>
     <section class="container about">
     <h2>Mis datos</h2>
@@ -335,6 +361,49 @@
                 });
             });
         </script>
+=======
+    <main class="container my-5">
+        <!-- Sección de datos del usuario -->
+        <section class="mb-5">
+            <h2 class="section-title">Mis datos</h2>
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-user icon"></i>Información del usuario
+                        </div>
+                        <div class="card-body" id="usuario-body">
+                            <!-- Los datos del usuario se cargarán aquí con AJAX -->
+                            <p class="text-center">Cargando datos...</p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <button class="btn-action delete-user" onclick="eliminarUsuario()">
+                                <i class="fas fa-trash icon"></i>Eliminar mi cuenta
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de talleres creados -->
+        <section class="mb-5">
+            <h2 class="section-title">Talleres que creé</h2>
+            <div class="row justify-content-center" id="talleres-body">
+                <!-- Los talleres creados se cargarán aquí con AJAX -->
+                <p class="text-center">Cargando talleres...</p>
+            </div>
+        </section>
+
+        <!-- Sección de talleres inscritos -->
+        <section class="mb-5">
+            <h2 class="section-title">Talleres a los que pertenezco</h2>
+            <div class="row" id="talleres-body1">
+                <!-- Los talleres inscritos se cargarán aquí con AJAX -->
+                <p class="text-center">Cargando talleres...</p>
+            </div>
+        </section>
+>>>>>>> 9234dfd4f8e6c37228e323baa9ac78a51fef8b57
     </main>
 
     <footer class="footer">
@@ -377,9 +446,146 @@
         </section>
     </footer>
 
+<<<<<<< HEAD
     <script src="../assets/js/slider.js"></script>
     <script src="../assets/js/questions.js"></script>
     <script src="../assets/js/menu.js"></script>
 </body>
 
 </html>
+=======
+    <!-- Bootstrap JS y dependencias -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Cargar datos del usuario
+            $.ajax({
+                url: 'mostrar_usuario.php',
+                type: 'GET',
+                success: function(data) {
+                    $('#usuario-body').html(data);
+                },
+                error: function(xhr, status, error) {
+                    $('#usuario-body').html('<p class="text-danger">Error al cargar los datos del usuario.</p>');
+                }
+            });
+
+            // Cargar talleres creados
+            $.ajax({
+                url: 'mostrar_mis_talleres.php',
+                type: 'GET',
+                success: function(data) {
+                    $('#talleres-body').html(data);
+                },
+                error: function(xhr, status, error) {
+                    $('#talleres-body').html('<p class="text-danger">Error al cargar los talleres creados.</p>');
+                }
+            });
+
+            // Cargar talleres inscritos
+            $.ajax({
+                url: 'talleres_inscrito.php',
+                type: 'GET',
+                success: function(data) {
+                    $('#talleres-body1').html(data);
+                },
+                error: function(xhr, status, error) {
+                    $('#talleres-body1').html('<p class="text-danger">Error al cargar los talleres inscritos.</p>');
+                }
+            });
+        });
+
+        // Función para eliminar usuario
+        function eliminarUsuario() {
+            if (confirm("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.")) {
+                $.ajax({
+                    url: 'eliminar_usuario.php',
+                    type: 'POST',
+                    success: function(response) {
+                        alert(response);
+                        window.location.href = 'cerrar_sesion.php'; // Redirigir al cerrar sesión
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Error al eliminar la cuenta: " + error);
+                    }
+                });
+            }
+        }
+
+        // Función para agregar cupos a un taller
+        function agregarCupos(tallerId) {
+            // Mostrar un prompt para que el usuario ingrese el número de cupos
+            const cupos = prompt("Ingresa el número de cupos que deseas agregar:");
+
+            // Validar que el usuario haya ingresado un número válido
+            if (cupos === null || cupos === "" || isNaN(cupos) || cupos <= 0) {
+                alert("Debes ingresar un número válido de cupos.");
+                return;
+            }
+
+            // Enviar el número de cupos al servidor
+            $.ajax({
+                url: 'agregar_cupos.php',
+                type: 'POST',
+                data: { taller_id: tallerId, cupos: cupos },
+                success: function(response) {
+                    alert(response);
+                    location.reload(); // Recargar la página para actualizar los datos
+                },
+                error: function(xhr, status, error) {
+                    alert("Error al agregar cupos: " + error);
+                }
+            });
+        }
+
+        // Función para eliminar cupos de un taller
+        function eliminarCupos(tallerId) {
+            // Mostrar un prompt para que el usuario ingrese el número de cupos
+            const cupos = prompt("Ingresa el número de cupos que deseas eliminar:");
+
+            // Validar que el usuario haya ingresado un número válido
+            if (cupos === null || cupos === "" || isNaN(cupos) || cupos <= 0) {
+                alert("Debes ingresar un número válido de cupos.");
+                return;
+            }
+
+            // Enviar el número de cupos al servidor
+            $.ajax({
+                url: 'eliminar_cupos.php',
+                type: 'POST',
+                data: { taller_id: tallerId, cupos: cupos },
+                success: function(response) {
+                    alert(response);
+                    location.reload(); // Recargar la página para actualizar los datos
+                },
+                error: function(xhr, status, error) {
+                    alert("Error al eliminar cupos: " + error);
+                }
+            });
+        }
+
+        // Función para eliminar un taller
+        function eliminarTaller(tallerId) {
+            if (confirm("¿Estás seguro de que deseas eliminar este taller? Esta acción no se puede deshacer.")) {
+                $.ajax({
+                    url: 'eliminar_taller.php',
+                    type: 'POST',
+                    data: { taller_id: tallerId },
+                    success: function(response) {
+                        alert(response);
+                        location.reload(); // Recargar la página para actualizar los datos
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Error al eliminar el taller: " + error);
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
+>>>>>>> 9234dfd4f8e6c37228e323baa9ac78a51fef8b57

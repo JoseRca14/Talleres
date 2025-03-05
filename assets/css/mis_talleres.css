@@ -1,0 +1,111 @@
+/* Estilos generales */
+body {
+    background-color: #f8f9fa;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2091f9;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.card {
+    width: 100%; /* Ocupa todo el ancho disponible dentro de la columna */
+    max-width: 800px; /* Establece un ancho máximo para la tarjeta */
+    margin: 0 auto; /* Centra la tarjeta horizontalmente */
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 1.5rem;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    background-color: #2091f9;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
+    padding: 1rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-text {
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.icon {
+    margin-right: 0.5rem;
+    color: #2091f9;
+}
+
+.field-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.field-value {
+    color: #555;
+}
+
+.btn-action {
+    margin: 0.25rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-action.add-cupos {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-action.add-cupos:hover {
+    background-color: #218838;
+}
+
+.btn-action.remove-cupos {
+    background-color: #ffc107;
+    color: black;
+}
+
+.btn-action.remove-cupos:hover {
+    background-color: #e0a800;
+}
+
+.btn-action.delete-taller {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-action.delete-taller:hover {
+    background-color: #c82333;
+}
+
+.btn-action.delete-user {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-action.delete-user:hover {
+    background-color: #c82333;
+}
