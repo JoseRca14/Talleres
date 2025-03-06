@@ -28,6 +28,8 @@ if ($resultado->num_rows > 0) {
                     <i class="fas fa-calendar-alt icon"></i>Taller inscrito
                 </div>
                 <div class="card-body">
+                    <p class="field-label">ID:</p>
+                    <p class="field-value">' . htmlspecialchars($taller['id_taller']) . '</p>
                     <p class="field-label">Nombre:</p>
                     <p class="field-value">' . htmlspecialchars($taller['nombre_taller']) . '</p>
                     <p class="field-label">Descripción:</p>

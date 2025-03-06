@@ -35,6 +35,19 @@ if (!$datos_usuario) {
 
 $id_usuario = $datos_usuario['id'];
 
+// Verificar que el taller exista en la base de datos antes de insertarlo
+$query_taller = mysqli_query($conexion, "SELECT id_taller FROM talleres WHERE id_taller = '$id_taller'");
+if (mysqli_num_rows($query_taller) == 0) {
+    echo '
+        <script>
+            alert("Error: Taller no encontrado en la base de datos.");
+            window.location = "taller.php";
+        </script>
+    ';
+    exit;
+}
+
+
 // Validar si el usuario ya está registrado en el taller
 $validar_registro = mysqli_query($conexion, "SELECT * FROM usuarios_talleres WHERE usuario_id = '$id_usuario' AND taller_id = '$id_taller'");
 

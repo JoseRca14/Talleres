@@ -26,6 +26,18 @@ $ubicacion = $_POST['ubicacion'];
 $cupos_disponibles = $_POST['cupos_disponibles']; // Nuevo campo
 $cupos_ocupados = 0; // Inicialmente no hay cupos ocupados
 
+// Validar que todos los campos necesarios estén llenos
+if (empty(trim($nombre_taller)) || empty(trim($descripcion)) || empty(trim($fecha_inicio)) || empty(trim($fecha_fin)) || 
+    empty(trim($dia)) || empty(trim($hora)) || empty(trim($ubicacion))) {
+    echo '
+        <script>
+            alert("Por favor, llena todos los campos obligatorios.");
+            window.location = "taller.php";
+        </script>
+    ';
+    exit;
+}
+
 // Obtener el correo del usuario desde la sesión
 $correo_usuario = $_SESSION['usuario'];
 
@@ -60,10 +72,6 @@ $creador_id = $usuario['id'];
 // Insertar el taller con las nuevas columnas
 $query = "INSERT INTO talleres(nombre_taller, descripcion, fecha_inicio, fecha_fin, dia, hora, ubicacion, creador_id, cupos_disponibles, cupos_ocupados)
           VALUES('$nombre_taller', '$descripcion', '$fecha_inicio', '$fecha_fin', '$dia', '$hora', '$ubicacion', '$creador_id', '$cupos_disponibles', '$cupos_ocupados')";
-
-// Depuración: Imprime la consulta SQL y el creador_id
-echo "Consulta SQL: " . $query . "<br>";
-echo "Creador ID: " . $creador_id . "<br>";
 
 $ejecutar = mysqli_query($conexion, $query);
 
