@@ -92,6 +92,7 @@
                     <input type="text" placeholder="Días" name="dia">
                     <input type="time" placeholder="Hora" name="hora">
                     <input type="text" placeholder="Ubicación" name="ubicacion">
+                    <input type="text" placeholder="Cupos" name="cupos_disponibles">
                     <button>Crear taller</button>
                 </form>
             </div>

@@ -19,7 +19,7 @@ if ($conexion->connect_error) {
 }
 
 // Consulta para obtener todos los talleres (incluyendo id_taller)
-$sql = "SELECT id_taller, nombre_taller, descripcion, fecha_inicio, fecha_fin, dia, hora, ubicacion FROM talleres";
+$sql = "SELECT id_taller, nombre_taller, descripcion, fecha_inicio, fecha_fin, dia, hora, ubicacion, cupos_disponibles FROM talleres";
 $result = $conexion->query($sql);
 
 if (!$result) {
@@ -160,7 +160,7 @@ if (!$result) {
                 <?php
                 if ($result->num_rows > 0) {
                     echo "<table>";
-                    echo "<tr><th>Código</th><th>Taller</th><th>Descripción</th><th>Fecha de Inicio</th><th>Fecha de Fin</th><th>Día</th><th>Hora</th><th>Ubicación</th></tr>";
+                    echo "<tr><th>Código</th><th>Taller</th><th>Descripción</th><th>Fecha de Inicio</th><th>Fecha de Fin</th><th>Día</th><th>Hora</th><th>Ubicación</th><th>Cupos</th></tr>";
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td>" . htmlspecialchars($row['id_taller']) . "</td>"; // Mostrar el código del taller
@@ -171,6 +171,7 @@ if (!$result) {
                         echo "<td>" . htmlspecialchars($row['dia']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['hora']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['ubicacion']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['cupos_disponibles']) . "</td>";
                         echo "</tr>";
                     }
                     echo "</table>";

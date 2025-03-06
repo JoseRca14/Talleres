@@ -28,7 +28,7 @@ $cupos_ocupados = 0; // Inicialmente no hay cupos ocupados
 
 // Validar que todos los campos necesarios estén llenos
 if (empty(trim($nombre_taller)) || empty(trim($descripcion)) || empty(trim($fecha_inicio)) || empty(trim($fecha_fin)) || 
-    empty(trim($dia)) || empty(trim($hora)) || empty(trim($ubicacion))) {
+    empty(trim($dia)) || empty(trim($hora)) || empty(trim($ubicacion)) || empty(trim($cupos_disponibles))) {
     echo '
         <script>
             alert("Por favor, llena todos los campos obligatorios.");

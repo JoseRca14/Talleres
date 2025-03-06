@@ -15,7 +15,7 @@ $usuario_id = $_SESSION['usuario_id'];
 
 // Eliminar el usuario
 $sql = "DELETE FROM usuarios WHERE id = $usuario_id";
-if ($conexion->query($sql) {
+if ($conexion->query($sql)) {
     echo "Cuenta eliminada correctamente.";
 } else {
     echo "Error al eliminar la cuenta: " . $conexion->error;

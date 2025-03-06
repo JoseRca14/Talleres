@@ -11,6 +11,18 @@
     
     //Encriptamiento de contrasena
     $contrasena = hash('sha512', $contrasena);
+    
+        // Validar que todos los campos necesarios estén llenos
+    if (empty(trim($nombre_completo)) || empty(trim($correo)) || empty(trim($codigo_estudiante)) || empty(trim($num_tel)) || 
+    empty(trim($carrera)) || empty(trim($contrasena))) {
+    echo '
+        <script>
+            alert("Por favor, llena todos los campos obligatorios.");
+            window.location = "../index.php";
+        </script>
+    ';
+    exit;
+    }
 
     $query = "INSERT INTO usuarios(nombre_completo, correo, codigo_estudiante, num_tel, carrera, contrasena)
               VALUES('$nombre_completo', '$correo', '$codigo_estudiante', '$num_tel', '$carrera', '$contrasena')";
