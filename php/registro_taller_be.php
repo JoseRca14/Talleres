@@ -16,39 +16,74 @@ if (!isset($_SESSION['usuario'])) {
 include 'conexion_be.php';
 
 // Obtener los datos del formulario
-$nombre_taller = $_POST['nombre_taller'];
-$descripcion = $_POST['descripcion'];
+$nombre_taller = mysqli_real_escape_string($conexion, $_POST['nombre_taller']);
+$descripcion = mysqli_real_escape_string($conexion, $_POST['descripcion']);
 $fecha_inicio = $_POST['fecha_inicio'];
 $fecha_fin = $_POST['fecha_fin'];
-$dia = $_POST['dia'];
+$dia = mysqli_real_escape_string($conexion, $_POST['dia']);
 $hora = $_POST['hora'];
-$ubicacion = $_POST['ubicacion'];
-$cupos_disponibles = $_POST['cupos_disponibles']; // Nuevo campo
+$ubicacion = mysqli_real_escape_string($conexion, $_POST['ubicacion']);
+$cupos_disponibles = intval($_POST['cupos_disponibles']);
 $cupos_ocupados = 0; // Inicialmente no hay cupos ocupados
 
-// Validar que todos los campos necesarios estén llenos
-if (empty(trim($nombre_taller)) || empty(trim($descripcion)) || empty(trim($fecha_inicio)) || empty(trim($fecha_fin)) || 
-    empty(trim($dia)) || empty(trim($hora)) || empty(trim($ubicacion)) || empty(trim($cupos_disponibles))) {
+// Validar campos obligatorios
+$campos_requeridos = [
+    'nombre_taller' => $nombre_taller,
+    'descripcion' => $descripcion,
+    'fecha_inicio' => $fecha_inicio,
+    'fecha_fin' => $fecha_fin,
+    'dia' => $dia,
+    'hora' => $hora,
+    'ubicacion' => $ubicacion,
+    'cupos_disponibles' => $cupos_disponibles
+];
+
+foreach ($campos_requeridos as $campo => $valor) {
+    if (empty(trim($valor))) {
+        echo '
+            <script>
+                alert("Por favor, completa el campo: ' . ucfirst(str_replace('_', ' ', $campo)) . '");
+                window.location = "taller.php";
+            </script>
+        ';
+        exit;
+    }
+}
+
+// Validar fechas
+if ($fecha_inicio > $fecha_fin) {
     echo '
         <script>
-            alert("Por favor, llena todos los campos obligatorios.");
+            alert("La fecha de inicio no puede ser posterior a la fecha final");
             window.location = "taller.php";
         </script>
     ';
     exit;
 }
 
-// Obtener el correo del usuario desde la sesión
-$correo_usuario = $_SESSION['usuario'];
-
-// Obtener el ID del usuario que está iniciando sesión
-$query_usuario = "SELECT id FROM usuarios WHERE correo = '$correo_usuario'";
-$resultado_usuario = mysqli_query($conexion, $query_usuario);
-
-if (!$resultado_usuario) {
+// Validar cupos
+if ($cupos_disponibles <= 0) {
     echo '
         <script>
-            alert("Error al obtener el ID del usuario: ' . mysqli_error($conexion) . '");
+            alert("Los cupos disponibles deben ser mayores a 0");
+            window.location = "taller.php";
+        </script>
+    ';
+    exit;
+}
+
+// Obtener el ID del usuario creador
+$correo_usuario = $_SESSION['usuario'];
+$query_usuario = "SELECT id FROM usuarios WHERE correo = ?";
+$stmt_usuario = mysqli_prepare($conexion, $query_usuario);
+mysqli_stmt_bind_param($stmt_usuario, "s", $correo_usuario);
+mysqli_stmt_execute($stmt_usuario);
+$resultado_usuario = mysqli_stmt_get_result($stmt_usuario);
+
+if (!$resultado_usuario || mysqli_num_rows($resultado_usuario) === 0) {
+    echo '
+        <script>
+            alert("Error al obtener el ID del usuario");
             window.location = "../index.php";
         </script>
     ';
@@ -56,26 +91,16 @@ if (!$resultado_usuario) {
 }
 
 $usuario = mysqli_fetch_assoc($resultado_usuario);
-
-if (!$usuario) {
-    echo '
-        <script>
-            alert("Error: No se encontró el usuario en la base de datos.");
-            window.location = "../index.php";
-        </script>
-    ';
-    exit();
-}
-
 $creador_id = $usuario['id'];
 
-// Insertar el taller con las nuevas columnas
+// Insertar el taller con sentencia preparada
 $query = "INSERT INTO talleres(nombre_taller, descripcion, fecha_inicio, fecha_fin, dia, hora, ubicacion, creador_id, cupos_disponibles, cupos_ocupados)
-          VALUES('$nombre_taller', '$descripcion', '$fecha_inicio', '$fecha_fin', '$dia', '$hora', '$ubicacion', '$creador_id', '$cupos_disponibles', '$cupos_ocupados')";
+          VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-$ejecutar = mysqli_query($conexion, $query);
+$stmt = mysqli_prepare($conexion, $query);
+mysqli_stmt_bind_param($stmt, "sssssssiii", $nombre_taller, $descripcion, $fecha_inicio, $fecha_fin, $dia, $hora, $ubicacion, $creador_id, $cupos_disponibles, $cupos_ocupados);
 
-if ($ejecutar) {
+if (mysqli_stmt_execute($stmt)) {
     echo '
         <script>
             alert("Taller registrado exitosamente");
@@ -85,7 +110,7 @@ if ($ejecutar) {
 } else {
     echo '
         <script>
-            alert("Error: ' . mysqli_error($conexion) . '");
+            alert("Error al registrar el taller: ' . mysqli_error($conexion) . '");
             window.location = "taller.php";
         </script>
     ';
