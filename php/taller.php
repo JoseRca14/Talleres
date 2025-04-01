@@ -74,13 +74,23 @@
             </div>
 
             <!-- Formulario de login y registro -->
-            <div class="contenedor__login__register">
-                <!-- Inscripción a taller -->
-                <form action="./login_taller_be.php" method="POST" class="formulario__login">
-                    <h2>Inscríbete a un taller</h2>
-                    <!-- <input type="text" placeholder="Ingresa tu número de usuario" name="id_usuario"> -->
-                    <input type="text" placeholder="Ingresa el ID del taller" name="id_taller">
-                    <button>Registrarme</button>
+            
+<form action="./login_taller_be.php" method="POST" class="formulario__login" id="form-inscripcion">
+    <h2>Inscríbete a un taller</h2>
+    <select name="id_taller" required>
+        <option value="">Selecciona un taller</option>
+        <?php
+        include 'conexion_be.php';
+        $query = "SELECT id_taller, nombre_taller, cupos_disponibles FROM talleres WHERE cupos_disponibles > 0";
+        $result = mysqli_query($conexion, $query);
+        while ($taller = mysqli_fetch_assoc($result)) {
+            echo '<option value="'.$taller['id_taller'].'">'.$taller['nombre_taller'].' (Cupos: '.$taller['cupos_disponibles'].')</option>';
+        }
+        mysqli_close($conexion);
+        ?>
+    </select>
+    <button type="submit">Registrarme</button>
+</form>
                 </form>
                 <!-- Creación de taller -->
                 <form action="./registro_taller_be.php" method="POST" class="formulario__register">

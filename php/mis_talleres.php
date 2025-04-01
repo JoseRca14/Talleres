@@ -97,6 +97,15 @@ if (!isset($_SESSION['usuario'])) {
             </div>
         </section>
 
+        <!-- Sección de administración de participantes -->
+        <section class="mb-5">
+            <h2 class="section-title">Administrar participantes</h2>
+            <div class="row justify-content-center" id="talleres-administrar">
+                <!-- Los talleres con participantes se cargarán aquí -->
+                <p class="text-center">Cargando participantes...</p>
+            </div>
+        </section>
+
         <!-- Sección de talleres inscritos -->
         <section class="mb-5">
             <h2 class="section-title">Talleres a los que pertenezco</h2>
@@ -178,6 +187,18 @@ if (!isset($_SESSION['usuario'])) {
                 }
             });
 
+            // Cargar talleres para administrar participantes
+            $.ajax({
+                url: 'mostrar_talleres_para_administrar.php',
+                type: 'GET',
+                success: function(data) {
+                    $('#talleres-administrar').html(data);
+                },
+                error: function(xhr, status, error) {
+                    $('#talleres-administrar').html('<p class="text-danger">Error al cargar los talleres para administración.</p>');
+                }
+            });
+
             // Cargar talleres inscritos
             $.ajax({
                 url: 'talleres_inscrito.php',
@@ -199,7 +220,7 @@ if (!isset($_SESSION['usuario'])) {
                     type: 'POST',
                     success: function(response) {
                         alert(response);
-                        window.location.href = 'cerrar_sesion.php'; // Redirigir al cerrar sesión
+                        window.location.href = 'cerrar_sesion.php';
                     },
                     error: function(xhr, status, error) {
                         alert("Error al eliminar la cuenta: " + error);
@@ -207,76 +228,89 @@ if (!isset($_SESSION['usuario'])) {
                 });
             }
         }
+
+        // Función para eliminar participante de un taller
+        function eliminarParticipante(tallerId, usuarioId) {
+            if (confirm("¿Estás seguro de que deseas eliminar este participante? Se liberará un cupo en el taller.")) {
+                $.ajax({
+                    url: 'eliminar_participante.php',
+                    type: 'POST',
+                    data: { 
+                        taller_id: tallerId,
+                        usuario_id: usuarioId
+                    },
+                    success: function(response) {
+                        alert(response);
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Error al eliminar participante: " + error);
+                    }
+                });
+            }
+        }
+
         // Función para agregar cupos a un taller
         function agregarCupos(tallerId) {
-             // Mostrar un prompt para que el usuario ingrese el número de cupos
-             const cupos = prompt("Ingresa el número de cupos que deseas agregar:");
- 
-             // Validar que el usuario haya ingresado un número válido
-             if (cupos === null || cupos === "" || isNaN(cupos) || cupos <= 0) {
-                 alert("Debes ingresar un número válido de cupos.");
-                 return;
-             }
- 
-             // Enviar el número de cupos al servidor
-             $.ajax({
-                 url: 'agregar_cupos.php',
-                 type: 'POST',
-                 data: { taller_id: tallerId, cupos: cupos },
-                 success: function(response) {
-                     alert(response);
-                     location.reload(); // Recargar la página para actualizar los datos
-                 },
-                 error: function(xhr, status, error) {
-                     alert("Error al agregar cupos: " + error);
-                 }
-             });
-         }
- 
-         // Función para eliminar cupos de un taller
-         function eliminarCupos(tallerId) {
-             // Mostrar un prompt para que el usuario ingrese el número de cupos
-             const cupos = prompt("Ingresa el número de cupos que deseas eliminar:");
- 
-             // Validar que el usuario haya ingresado un número válido
-             if (cupos === null || cupos === "" || isNaN(cupos) || cupos <= 0) {
-                 alert("Debes ingresar un número válido de cupos.");
-                 return;
-             }
- 
-             // Enviar el número de cupos al servidor
-             $.ajax({
-                 url: 'eliminar_cupos.php',
-                 type: 'POST',
-                 data: { taller_id: tallerId, cupos: cupos },
-                 success: function(response) {
-                     alert(response);
-                     location.reload(); // Recargar la página para actualizar los datos
-                 },
-                 error: function(xhr, status, error) {
-                     alert("Error al eliminar cupos: " + error);
-                 }
-             });
-         }
- 
-         // Función para eliminar un taller
-         function eliminarTaller(tallerId) {
-             if (confirm("¿Estás seguro de que deseas eliminar este taller? Esta acción no se puede deshacer.")) {
-                 $.ajax({
-                     url: 'eliminar_taller.php',
-                     type: 'POST',
-                     data: { taller_id: tallerId },
-                     success: function(response) {
-                         alert(response);
-                         location.reload(); // Recargar la página para actualizar los datos
-                     },
-                     error: function(xhr, status, error) {
-                         alert("Error al eliminar el taller: " + error);
-                     }
-                 });
-             }
-         }
+            const cupos = prompt("Ingresa el número de cupos que deseas agregar:");
+            if (cupos === null || cupos === "" || isNaN(cupos) || cupos <= 0) {
+                alert("Debes ingresar un número válido de cupos.");
+                return;
+            }
+
+            $.ajax({
+                url: 'agregar_cupos.php',
+                type: 'POST',
+                data: { taller_id: tallerId, cupos: cupos },
+                success: function(response) {
+                    alert(response);
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert("Error al agregar cupos: " + error);
+                }
+            });
+        }
+
+        // Función para eliminar cupos de un taller
+        function eliminarCupos(tallerId) {
+            const cupos = prompt("Ingresa el número de cupos que deseas eliminar:");
+            if (cupos === null || cupos === "" || isNaN(cupos) || cupos <= 0) {
+                alert("Debes ingresar un número válido de cupos.");
+                return;
+            }
+
+            $.ajax({
+                url: 'eliminar_cupos.php',
+                type: 'POST',
+                data: { taller_id: tallerId, cupos: cupos },
+                success: function(response) {
+                    alert(response);
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert("Error al eliminar cupos: " + error);
+                }
+            });
+        }
+
+        // Función para eliminar un taller
+        function eliminarTaller(tallerId) {
+            if (confirm("¿Estás seguro de que deseas eliminar este taller? Esta acción no se puede deshacer.")) {
+                $.ajax({
+                    url: 'eliminar_taller.php',
+                    type: 'POST',
+                    data: { taller_id: tallerId },
+                    success: function(response) {
+                        alert(response);
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Error al eliminar el taller: " + error);
+                    }
+                });
+            }
+        }
     </script>
 </body>
-
 </html>
