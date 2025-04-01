@@ -17,5 +17,9 @@
     "url": "https://github.com/JoseRca14/Talleres/issues"
   },
   "homepage": "https://github.com/JoseRca14/Talleres#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2",
+    "resend": "^4.2.0"
+  }
 }

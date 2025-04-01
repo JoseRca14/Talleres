@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 
-const resend = new Resend('pon aqui la clave');
+const resend = new Resend('ApiKey');
 
 async function sendEmails(toEmails, subject, htmlContent) {
   try {
