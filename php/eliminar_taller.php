@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 if (!isset($_SESSION['usuario_id'])) {
     die("No autorizado");
@@ -20,18 +20,20 @@ $sql = "SELECT u.correo
         WHERE ut.taller_id = $taller_id";
 $result = $conexion->query($sql);
 
-if ($result->num_rows > 0) {
-    $emails = [];
+$emails = [];
+if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $emails[] = $row['correo']; // Guardar los correos en un array
+        $emails[] = $row['correo'];
     }
+}
 
-    // 2. Eliminar el taller
-    $sql_delete = "DELETE FROM talleres WHERE id_taller = $taller_id";
-    if ($conexion->query($sql_delete)) {
-        echo "Taller eliminado correctamente.";
+// 2. Eliminar el taller
+$sql_delete = "DELETE FROM talleres WHERE id_taller = $taller_id";
+if ($conexion->query($sql_delete)) {
+    echo "Taller eliminado correctamente.";
 
-        // 3. Enviar los correos al servidor Node.js
+    // 3. Si hay correos, enviar notificación
+    if (!empty($emails)) {
         $nodejs_url = "http://localhost:3000/enviar-correos"; // URL del servidor Node.js
         $data = [
             'emails' => $emails,
@@ -51,15 +53,13 @@ if ($result->num_rows > 0) {
         $result = file_get_contents($nodejs_url, false, $context);
 
         if ($result === FALSE) {
-            echo "Error al enviar los correos.";
+            echo " Error al enviar los correos.";
         } else {
-            echo "Correos enviados correctamente.";
+            echo " Correos enviados correctamente.";
         }
-    } else {
-        echo "Error al eliminar el taller: " . $conexion->error;
     }
 } else {
-    echo "No hay usuarios inscritos en este taller.";
+    echo "Error al eliminar el taller: " . $conexion->error;
 }
 
 $conexion->close();

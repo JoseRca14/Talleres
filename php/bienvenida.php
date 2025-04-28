@@ -107,7 +107,7 @@
                 <div class="knowledge__texts">
                     <h2 class="subtitle">Taller de arte</h2>
                     <p class="knowledge__paragraph">El nuevo taller de arte te está esperando para que te unas y liberes todo tu potencial artístico</p>
-                    <a href="./taller.php" class="cta">Unirme</a>
+                    <a href="inscribir_taller.php?id_taller=35" class="cta">Unirme</a>
                 </div>
 
                 <figure class="knowledge__picture">
@@ -128,7 +128,7 @@
                         <p class="price__features">Torneos mixtos</p>
                         <p class="price__features">Moverte es vida</p>
                     </div>
-                    <a href="inscribir_taller.php?id_taller=1" class="price__cta">Inscribirme</a>
+                    <a href="inscribir_taller.php?id_taller=33" class="price__cta">Inscribirme</a>
                 </div>
 
                 <div class="price__element price__element--best">
@@ -140,7 +140,7 @@
                         <p class="price__features">Torneos mixtos</p>
                         <p class="price__features">Demuestra tu "jogo bonito" en la cancha</p>
                     </div>
-                    <a href="inscribir_taller.php?id_taller=2" class="price__cta">Inscribirme</a>
+                    <a href="inscribir_taller.php?id_taller=32" class="price__cta">Inscribirme</a>
                 </div>
 
                 <div class="price__element">
@@ -152,7 +152,7 @@
                         <p class="price__features">Enfrentamientos y torneos</p>
                         <p class="price__features">Sé el vencedor de un gran juego de estrategia</p>
                     </div>
-                    <a href="inscribir_taller.php?id_taller=3" class="price__cta">Inscribirme</a>
+                    <a href="inscribir_taller.php?id_taller=34" class="price__cta">Inscribirme</a>
                 </div>
             </div>
         </section>
@@ -237,7 +237,7 @@
             <section class="questions__offer">
                 <h2 class="subtitle">“¿Estás listo?”</h2>
                 <p class="questions__copy">Estamos a favor de la actividad y convivencia de los estudiantes para poner a prueba y apoyar su desarrollo físico, mental y artístico durante su tiempo en la Universidad</p>
-                <a href="./ver_talleres.php" class="cta">Conoce</a>
+                <a href="./ver_talleres.php" class="cta">Conoce todos los talleres</a>
             </section>
         </section>
     </main>
