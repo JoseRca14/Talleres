@@ -34,33 +34,33 @@ if ($conexion->query($sql_delete)) {
 
     // 3. Si hay correos, enviar notificación
     if (!empty($emails)) {
-        $nodejs_url = "http://localhost:3000/enviar-correos"; // URL del servidor Node.js
+        $nodejs_url = "http://localhost:3000/enviar-correos";
         $data = [
             'emails' => $emails,
             'subject' => 'Taller eliminado',
-            'htmlContent' => '<strong>Lamentamos informarle que el taller fue eliminado. Le invitamos a conocer nuestros otros talleres.</strong>'
+            'htmlContent' => '<strong>Lamentamos informarle que el taller fue eliminado. Le invitamos a conocer <a href="http://localhost/Talleres/php/ver_talleres.php">nuestros otros talleres</a>.</strong>'
         ];
 
-        // Usar cURL para enviar los datos a Node.js
-        $options = [
-            'http' => [
-                'header'  => "Content-type: application/json\r\n",
-                'method'  => 'POST',
-                'content' => json_encode($data),
-            ],
-        ];
-        $context  = stream_context_create($options);
-        $result = file_get_contents($nodejs_url, false, $context);
+        $ch = curl_init($nodejs_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json'
+        ]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
-        if ($result === FALSE) {
-            echo " Error al enviar los correos.";
+        $response = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        if ($response === false || $http_code !== 200) {
+            echo " Error al enviar los correos: " . curl_error($ch);
         } else {
             echo " Correos enviados correctamente.";
         }
-    }
+
+        curl_close($ch);
+    } // <- cierra if (!empty($emails))
+
 } else {
     echo "Error al eliminar el taller: " . $conexion->error;
 }
-
-$conexion->close();
-?>

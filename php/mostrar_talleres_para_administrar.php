@@ -14,7 +14,6 @@ $sql = "SELECT
             id_taller, 
             nombre_taller, 
             cupos_disponibles,
-            cupo_maximo,
             cupos_ocupados
         FROM talleres 
         WHERE creador_id = ?";
@@ -30,7 +29,7 @@ if (mysqli_num_rows($result) > 0) {
         echo '<div class="card">';
         echo '<div class="card-header bg-primary text-white">';
         echo '<h5>' . htmlspecialchars($taller['nombre_taller']) . '</h5>';
-        echo '<span class="badge bg-light text-dark">Cupos disponibles: ' . $taller['cupos_disponibles'] . '/' . $taller['cupo_maximo'] . '</span>';
+        echo '<span class="badge bg-light text-dark">Cupos disponibles: ' . $taller['cupos_disponibles'] . ' Cupos utilizados: ' . $taller['cupos_ocupados'] . '</span>';
         echo '</div>';
         echo '<div class="card-body">';
         

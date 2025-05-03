@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // 2. Actualizar los cupos del taller
         $sql_actualizar = "UPDATE talleres SET 
                             cupos_disponibles = cupos_disponibles + 1,
-                            cupos_ocupados = cupos_ocupados - 1
+                            cupos_ocupados = cupos_ocupados -1
                           WHERE id_taller = ?";
         $stmt_actualizar = mysqli_prepare($conexion, $sql_actualizar);
         mysqli_stmt_bind_param($stmt_actualizar, "i", $taller_id);

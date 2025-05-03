@@ -128,7 +128,7 @@
                         <p class="price__features">Torneos mixtos</p>
                         <p class="price__features">Moverte es vida</p>
                     </div>
-                    <a href="inscribir_taller.php?id_taller=33" class="price__cta">Inscribirme</a>
+                    <a href="inscribir_taller.php?id_taller=39" class="price__cta">Inscribirme</a>
                 </div>
 
                 <div class="price__element price__element--best">
@@ -152,7 +152,7 @@
                         <p class="price__features">Enfrentamientos y torneos</p>
                         <p class="price__features">Sé el vencedor de un gran juego de estrategia</p>
                     </div>
-                    <a href="inscribir_taller.php?id_taller=34" class="price__cta">Inscribirme</a>
+                    <a href="inscribir_taller.php?id_taller=38" class="price__cta">Inscribirme</a>
                 </div>
             </div>
         </section>
